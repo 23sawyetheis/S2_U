@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=PacmanGraphics
+comment1.params=player\ ghost\ endgame\ pellet
+comment1.target=PacmanGraphics(PacMan,\ Ghost[],\ boolean,\ Pellet[])
+comment2.params=player
+comment2.target=void\ updatePlayerLocation(PacMan)
+comment3.params=endgame
+comment3.target=void\ hitGhost(boolean)
+comment4.params=g
+comment4.target=void\ paint(java.awt.Graphics)
+numComments=5

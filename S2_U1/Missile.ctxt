@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Missile
+comment1.params=xx\ yy
+comment1.target=Missile(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=xdir\ ydir
+comment4.target=void\ moveMissile(int,\ int)
+numComments=5

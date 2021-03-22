@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Pellet
+comment1.params=xx\ yy\ ppacSize
+comment1.target=Pellet(int,\ int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getSize()
+comment4.params=
+comment4.target=int\ getY()
+comment5.params=pacX\ pacY
+comment5.target=boolean\ isPelletBeingEaten(int,\ int)
+comment6.params=
+comment6.target=boolean\ isEaten()
+comment7.params=
+comment7.target=void\ beenEaten()
+numComments=8
