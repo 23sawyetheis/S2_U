@@ -11,7 +11,7 @@ public class SpaceInvaders  implements ActionListener, KeyListener
         JButton b1,b2;
         int xdir, ydir, index, i;
         int shotDelay, fastShotDelay, deadMissile, deadFastMissile, totalShots, totalFastShots;
-        boolean endgame, shottaken, startGame; 
+        boolean endgame, shotTaken, startGame, fastShotTaken; 
         Alien a1[]; 
         SpaceShip player;
         Missile[] missile, fastMissile;
@@ -20,9 +20,18 @@ public class SpaceInvaders  implements ActionListener, KeyListener
     { 
         endgame = false;
         startGame = false;
+        shotTaken = false;
+        fastShotTaken = false;
         
         missile = new Missile[50];
         fastMissile = new Missile[100];
+        
+        shotDelay = 100;
+        fastShotDelay = 1000;
+        deadMissile = 0;
+        deadFastMissile = 0;
+        totalShots = 0;
+        totalFastShots = 0;
         
         a1 = new Alien[20];
         
@@ -39,15 +48,15 @@ public class SpaceInvaders  implements ActionListener, KeyListener
                 
         xdir = 0;
         ydir = 0;
-        shottaken = false;
         
         f1 = new JFrame("The Goverment Needs You Nerd");
           f1.setSize(700,700);
+          f1.setResizable(false);
           f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
           
         Container c1 = f1.getContentPane();
           
-        g1 = new SpaceGraphics(player,missile, fastMissile,shottaken,a1);
+        g1 = new SpaceGraphics(player,missile, fastMissile,shotTaken, fastShotTaken,a1);
         
         g1.addKeyListener(this);
           
@@ -89,43 +98,52 @@ public class SpaceInvaders  implements ActionListener, KeyListener
        /** Need this section of code to slow computer down. */
        
        if (startGame == true) {
-        for (i = 0; i < totalShots; index++) {
-            for (index = 0; index < a1.length; index++) {
-                if(missile[i].getX() >= a1[index].getX() - 10 && missile[i].getX() <= a1[index].getX() + 20 && missile[i].getY() == a1[index].getY() + 20)
-                { 
-                    a1[index].destroyAlien();  
-                    player.addScore(10);
+           
+            
+            if (shotTaken == true) {
+            /*for (i = 0; i < totalShots; index++) {
+                for (index = 0; index < a1.length; index++) {
+                    if(missile[i].getX() >= a1[index].getX() - 10 && missile[i].getX() <= a1[index].getX() + 20 && missile[i].getY() == a1[index].getY() + 20)
+                    { 
+                        a1[index].destroyAlien();  
+                        player.addScore(10);
+                    }
+                }
+            }*/
+            
+            //for (index = 0; index < totalShots; index++) {
+                //missile[index].moveMissile(0,-1);
+            //}
+            g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
+            }
+        
+            if (fastShotTaken) {
+                
+            } else {
+            for (i = 0; i < totalFastShots; index++) {
+                for (index = 0; index < a1.length; index++) {
+                    if(fastMissile[i].getX() >= a1[index].getX() - 10 && fastMissile[i].getX() <= a1[index].getX() + 20 && fastMissile[i].getY() == a1[index].getY() + 20)
+                    { 
+                        a1[index].destroyAlien();  
+                        player.addScore(10);
+                    }
                 }
             }
-        }
         
-        for (i = 0; i < totalFastShots; index++) {
-            for (index = 0; index < a1.length; index++) {
-                if(fastMissile[i].getX() >= a1[index].getX() - 10 && fastMissile[i].getX() <= a1[index].getX() + 20 && fastMissile[i].getY() == a1[index].getY() + 20)
-                { 
-                    a1[index].destroyAlien();  
-                    player.addScore(10);
-                }
+            for (index = 0; index < totalFastShots; index++) {
+                fastMissile[index].moveMissile(0,-3);
             }
-        }
-          
-        player.moveShip(xdir, ydir);
-        for (index = 0; index < totalShots; index++) {
-          missile[index].moveMissile(0,-1);
-          g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots);
-        }
+            g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
+            }
         
-        for (index = 0; index < totalFastShots; index++) {
-          fastMissile[index].moveMissile(0,-3);
-          g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots);
-        }
+            shotDelay++;
+            fastShotDelay++;
+            
+            player.moveShip(xdir, ydir);
         
-        shotDelay++;
-        fastShotDelay++;
-        
-        g1.updateAlien(a1);        
-        g1.updatePlayerLocation(player);
-        g1.repaint();
+            g1.updateAlien(a1);        
+            g1.updatePlayerLocation(player);
+            g1.repaint();
        }
       }         //end of while
      }          //end of runGame() method
@@ -163,26 +181,39 @@ public class SpaceInvaders  implements ActionListener, KeyListener
            if(evt.getKeyCode() == 32 && shotDelay > 100)      // spacebar
            {
             if (deadMissile == totalShots) deadMissile = 0;
-            if (missile[deadMissile].getY() < 0) {
-                missile[deadMissile].setMissile(player.getX()+5, player.getY()-5);
-                deadMissile++;
-            } else {
-               missile[totalShots] = new Missile(player.getX()+5, player.getY()-5);
-               totalShots++; 
+            try {
+                if (missile[deadMissile].getY() < 0) {
+                    missile[deadMissile].setMissile(player.getX()+5, player.getY()-5);
+                    deadMissile++;
+                } else {
+                    missile[totalShots] = new Missile(player.getX()+5, player.getY()-5);
+                    totalShots++; 
+                }
+            } catch (NullPointerException e) {
+                missile[totalShots] = new Missile(player.getX()+5, player.getY()-5);
+                totalShots++; 
             }
             shotDelay = 0;
+            shotTaken = true;
             }
+           
             if(evt.getKeyCode() == 90 && fastShotDelay > 150)      // spacebar
            {
                if (deadFastMissile == totalFastShots) deadFastMissile = 0;
-               if (fastMissile[deadFastMissile].getY() < 0) {
-                   fastMissile[deadMissile].setMissile(player.getX()+5, player.getY()-5);
-                   deadFastMissile++;
-                } else {
-                    missile[totalShots] = new Missile(player.getX()+5, player.getY()-5);
+               try {
+                   if (fastMissile[deadFastMissile].getY() < 0) {
+                       fastMissile[deadMissile].setMissile(player.getX()+5, player.getY()-5);
+                       deadFastMissile++;
+                    } else {
+                        missile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
+                        totalFastShots++;
+                    }
+               } catch (NullPointerException e) {
+                    missile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
                     totalFastShots++;
                }
                fastShotDelay = 0; 
+               fastShotTaken = true;
            } 
               
         }

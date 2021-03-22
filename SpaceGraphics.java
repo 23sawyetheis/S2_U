@@ -10,16 +10,18 @@ public class SpaceGraphics  extends JPanel
      SpaceShip pplayer;
      Missile missile[], fastMissile[];
      int index, totalShots, totalFastShots;
+     boolean shotTaken, fastShotTaken;
     
-     public SpaceGraphics(SpaceShip player, Missile[] mmissile, Missile[] ffastMissile, boolean shottaken,Alien[] a1) 
+     public SpaceGraphics(SpaceShip player, Missile[] mmissile, Missile[] ffastMissile, boolean sshotTaken,boolean ffastShotTaken, Alien[] a1) 
     {
       setBackground(Color.red);
-      shottakenn = shottaken;
       
       aa1 = a1;
       pplayer = player;
       missile = mmissile;
       fastMissile = ffastMissile;
+      shotTaken = sshotTaken;
+      fastShotTaken = ffastShotTaken;
     }
    
     public void updatePlayerLocation(SpaceShip player)
@@ -27,10 +29,12 @@ public class SpaceGraphics  extends JPanel
       pplayer = player;
     }
     
-    public void updateMissileLocation(Missile[] mmissile, Missile[] ffastMissile,int ttotalShots,int ttotalFastShots)
+    public void updateMissileLocation(Missile[] mmissile, Missile[] ffastMissile,int ttotalShots,int ttotalFastShots, boolean sshotTaken, boolean ffastShotTaken)
     {
         missile = mmissile;
         fastMissile = ffastMissile;
+        shotTaken = sshotTaken;
+        fastShotTaken = ffastShotTaken;
     }
     
     public void updateAlien(Alien[] a1)
@@ -68,8 +72,18 @@ public class SpaceGraphics  extends JPanel
           
        g.setColor(Color.blue);
          
-       for (index = 0; index < totalShots taken) 
-          g.setColor(Color.yellow);
-          g.fillRect(missile.getX(),mm1.getY(),10,10);
+       if (shotTaken == true) {
+           for (index = 0; index < totalShots; index++) {
+               g.setColor(Color.yellow);
+               g.fillRect(missile[index].getX(),missile[index].getY(),10,10);
+            }
+       }
+       
+       if (fastShotTaken == true) {
+           for (index = 0; index < totalFastShots; index++) {
+               g.setColor(Color.yellow);
+               g.fillRect(fastMissile[index].getX(),fastMissile[index].getY(),10,10);
+            }
+       }
      }           
 }
