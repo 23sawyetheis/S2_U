@@ -68,7 +68,7 @@ public class SpaceGraphics  extends JPanel
           
        g.setColor(Color.blue);
          
-       for (index = 0; index < totalShots taken)
+       for (index = 0; index < totalShots taken) 
           g.setColor(Color.yellow);
           g.fillRect(missile.getX(),mm1.getY(),10,10);
      }           
