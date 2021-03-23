@@ -99,50 +99,53 @@ public class SpaceInvaders  implements ActionListener, KeyListener
        
        if (startGame == true) {
            
-            
             if (shotTaken == true) {
-            /*for (i = 0; i < totalShots; index++) {
                 for (index = 0; index < a1.length; index++) {
-                    if(missile[i].getX() >= a1[index].getX() - 10 && missile[i].getX() <= a1[index].getX() + 20 && missile[i].getY() == a1[index].getY() + 20)
-                    { 
-                        a1[index].destroyAlien();  
-                        player.addScore(10);
+                    for (i = 0; i < totalShots; i++) {
+                        if(missile[i].getX() >= a1[index].getX() - 10 && missile[i].getX() <= a1[index].getX() + 20 && missile[i].getY() <= a1[index].getY() + 20 && a1[index].isDestroyed() == false)
+                        { 
+                            a1[index].destroyAlien();  
+                            player.addScore(10);
+                        }
                     }
                 }
-            }*/
             
-            //for (index = 0; index < totalShots; index++) {
-                //missile[index].moveMissile(0,-1);
-            //}
-            g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
+                for (index = 0; index < totalShots; index++) {
+                    missile[index].moveMissile(0,-1);
+                }
+                g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
             }
-        
-            if (fastShotTaken) {
-                
-            } else {
-            for (i = 0; i < totalFastShots; index++) {
+                      
+            if (fastShotTaken == true) {
                 for (index = 0; index < a1.length; index++) {
-                    if(fastMissile[i].getX() >= a1[index].getX() - 10 && fastMissile[i].getX() <= a1[index].getX() + 20 && fastMissile[i].getY() == a1[index].getY() + 20)
-                    { 
-                        a1[index].destroyAlien();  
-                        player.addScore(10);
+                    for (i = 0; i < totalFastShots; i++) {
+                        if(fastMissile[i].getX() >= a1[index].getX() - 10 && fastMissile[i].getX() <= a1[index].getX() + 20 && fastMissile[i].getY() <= a1[index].getY() + 20 && a1[index].isDestroyed() == false)
+                        { 
+                            a1[index].destroyAlien();  
+                            player.addScore(10);
+                        }
                     }
                 }
-            }
         
-            for (index = 0; index < totalFastShots; index++) {
-                fastMissile[index].moveMissile(0,-3);
-            }
-            g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
+                for (index = 0; index < totalFastShots; index++) {
+                    fastMissile[index].moveMissile(0,-3);
+                }
+                g1.updateMissileLocation(missile, fastMissile, totalShots, totalFastShots, shotTaken, fastShotTaken);
             }
         
             shotDelay++;
             fastShotDelay++;
             
-            player.moveShip(xdir, ydir);
-        
+            if (player.getX() <= 0) {
+                player.moveShip(0, ydir);
+            } else if (player.getX() >= 580) {
+                player.moveShip(0, ydir);
+            } else {
+                player.moveShip(xdir, ydir);
+            }
+            
             g1.updateAlien(a1);        
-            g1.updatePlayerLocation(player);
+            g1.updatePlayerLocation(player, endgame);
             g1.repaint();
        }
       }         //end of while
@@ -205,11 +208,11 @@ public class SpaceInvaders  implements ActionListener, KeyListener
                        fastMissile[deadMissile].setMissile(player.getX()+5, player.getY()-5);
                        deadFastMissile++;
                     } else {
-                        missile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
+                        fastMissile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
                         totalFastShots++;
                     }
                } catch (NullPointerException e) {
-                    missile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
+                    fastMissile[totalFastShots] = new Missile(player.getX()+5, player.getY()-5);
                     totalFastShots++;
                }
                fastShotDelay = 0; 

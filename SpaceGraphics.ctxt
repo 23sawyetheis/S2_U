@@ -2,8 +2,8 @@
 comment0.target=SpaceGraphics
 comment1.params=player\ mmissile\ ffastMissile\ sshotTaken\ ffastShotTaken\ a1
 comment1.target=SpaceGraphics(SpaceShip,\ Missile[],\ Missile[],\ boolean,\ boolean,\ Alien[])
-comment2.params=player
-comment2.target=void\ updatePlayerLocation(SpaceShip)
+comment2.params=player\ eendgame
+comment2.target=void\ updatePlayerLocation(SpaceShip,\ boolean)
 comment3.params=mmissile\ ffastMissile\ ttotalShots\ ttotalFastShots\ sshotTaken\ ffastShotTaken
 comment3.target=void\ updateMissileLocation(Missile[],\ Missile[],\ int,\ int,\ boolean,\ boolean)
 comment4.params=a1

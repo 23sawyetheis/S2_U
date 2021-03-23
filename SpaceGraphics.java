@@ -10,11 +10,11 @@ public class SpaceGraphics  extends JPanel
      SpaceShip pplayer;
      Missile missile[], fastMissile[];
      int index, totalShots, totalFastShots;
-     boolean shotTaken, fastShotTaken;
+     boolean shotTaken, fastShotTaken, endgame;
     
      public SpaceGraphics(SpaceShip player, Missile[] mmissile, Missile[] ffastMissile, boolean sshotTaken,boolean ffastShotTaken, Alien[] a1) 
     {
-      setBackground(Color.red);
+      setBackground(Color.black);
       
       aa1 = a1;
       pplayer = player;
@@ -24,15 +24,18 @@ public class SpaceGraphics  extends JPanel
       fastShotTaken = ffastShotTaken;
     }
    
-    public void updatePlayerLocation(SpaceShip player)
+    public void updatePlayerLocation(SpaceShip player, boolean eendgame)
     {
       pplayer = player;
+      endgame = eendgame;
     }
     
     public void updateMissileLocation(Missile[] mmissile, Missile[] ffastMissile,int ttotalShots,int ttotalFastShots, boolean sshotTaken, boolean ffastShotTaken)
     {
         missile = mmissile;
         fastMissile = ffastMissile;
+        totalShots = ttotalShots;
+        totalFastShots = ttotalFastShots;
         shotTaken = sshotTaken;
         fastShotTaken = ffastShotTaken;
     }
@@ -52,15 +55,15 @@ public class SpaceGraphics  extends JPanel
     {
         super.paint(g);                     
         
-       g.setColor(Color.black);
+       g.setColor(Color.white);
        g.fillRect(pplayer.getX(),pplayer.getY(),20,20);       //player
        
        g.setFont(new Font("Arial", Font.BOLD, 20));
        g.drawString("Score:" + pplayer.getScore(), 10,500);
        
        for (index = 0; index < aa1.length; index++) {
-           if(aa1[index].getDestroyed() == false)  { 
-            g.setColor(Color.blue);
+           if(aa1[index].isDestroyed() == false)  { 
+            g.setColor(Color.green);
             g.fillRect(aa1[index].getX(),aa1[index].getY(),20,20);
            }
             else
@@ -69,9 +72,7 @@ public class SpaceGraphics  extends JPanel
                 g.fillOval(aa1[index].getX()-10,aa1[index].getY()-10,40,40);
             }
         }
-          
-       g.setColor(Color.blue);
-         
+                   
        if (shotTaken == true) {
            for (index = 0; index < totalShots; index++) {
                g.setColor(Color.yellow);
@@ -85,5 +86,12 @@ public class SpaceGraphics  extends JPanel
                g.fillRect(fastMissile[index].getX(),fastMissile[index].getY(),10,10);
             }
        }
+       
+       if(endgame == true)
+       {
+          g.setColor(Color.red);
+          g.setFont(new Font("Arial", Font.BOLD, 60));
+          g.drawString("Game Over",175,300);
+        }
      }           
 }

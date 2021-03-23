@@ -25,7 +25,7 @@ public class Alien
     }
     
     
-    public boolean getDestroyed()
+    public boolean isDestroyed()
     {
         return destroyed;
     }
