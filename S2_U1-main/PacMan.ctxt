@@ -1,0 +1,21 @@
+#BlueJ class context
+comment0.target=PacMan
+comment1.params=xx\ yy
+comment1.target=PacMan(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=int\ getPacSize()
+comment5.params=
+comment5.target=int\ getScore()
+comment6.params=points
+comment6.target=void\ addScore(int)
+comment7.params=xdir\ ydir
+comment7.target=void\ movePac(int,\ int)
+comment8.params=xx\ yy
+comment8.target=void\ setPac(int,\ int)
+comment9.params=g
+comment9.target=void\ draw(java.awt.Graphics)
+numComments=10

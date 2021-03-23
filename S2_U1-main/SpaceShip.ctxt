@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=SpaceShip
+comment1.params=xx\ yy
+comment1.target=SpaceShip(int,\ int)
+comment2.params=
+comment2.target=int\ getX()
+comment3.params=
+comment3.target=int\ getY()
+comment4.params=
+comment4.target=int\ getScore()
+comment5.params=points
+comment5.target=void\ addScore(int)
+comment6.params=xx\ yy
+comment6.target=void\ setShip(int,\ int)
+comment7.params=xdir\ ydir
+comment7.target=void\ moveShip(int,\ int)
+numComments=8

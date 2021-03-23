@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=SpaceGraphics
+comment1.params=player\ mmissile\ ffastMissile\ sshotTaken\ ffastShotTaken\ a1
+comment1.target=SpaceGraphics(SpaceShip,\ Missile[],\ Missile[],\ boolean,\ boolean,\ Alien[])
+comment2.params=player\ eendgame
+comment2.target=void\ updatePlayerLocation(SpaceShip,\ boolean)
+comment3.params=mmissile\ ffastMissile\ ttotalShots\ ttotalFastShots\ sshotTaken\ ffastShotTaken
+comment3.target=void\ updateMissileLocation(Missile[],\ Missile[],\ int,\ int,\ boolean,\ boolean)
+comment4.params=a1
+comment4.target=void\ updateAlien(Alien[])
+comment5.params=amx\ amy
+comment5.target=void\ updateAlienMissile(int,\ int)
+comment6.params=g
+comment6.target=void\ paint(java.awt.Graphics)
+numComments=7
