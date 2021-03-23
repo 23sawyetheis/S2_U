@@ -29,6 +29,11 @@ public class SpaceShip
       score = score + points;   
     } 
     
+    public void setShip (int xx, int yy) {
+        x = xx;
+        y = yy;
+    }
+    
     public void moveShip(int xdir, int ydir)
     {
        x = x + xdir;

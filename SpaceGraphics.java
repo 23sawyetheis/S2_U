@@ -59,7 +59,7 @@ public class SpaceGraphics  extends JPanel
        g.fillRect(pplayer.getX(),pplayer.getY(),20,20);       //player
        
        g.setFont(new Font("Arial", Font.BOLD, 20));
-       g.drawString("Score:" + pplayer.getScore(), 10,500);
+       g.drawString("Score: " + pplayer.getScore(), 10,500);
        
        for (index = 0; index < aa1.length; index++) {
            if(aa1[index].isDestroyed() == false)  { 

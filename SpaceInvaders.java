@@ -135,14 +135,17 @@ public class SpaceInvaders  implements ActionListener, KeyListener
         
             shotDelay++;
             fastShotDelay++;
-            
-            if (player.getX() <= 0) {
-                player.moveShip(0, ydir);
-            } else if (player.getX() >= 580) {
-                player.moveShip(0, ydir);
-            } else {
-                player.moveShip(xdir, ydir);
+           
+            if (player.getX() < 0) {  
+                xdir = 0; 
+                player.setShip(0, player.getY());
             }
+           
+            if (player.getX() > 665) {  
+                xdir = 0; 
+                player.setShip(665, player.getY());   
+            }
+            player.moveShip(xdir, ydir);
             
             g1.updateAlien(a1);        
             g1.updatePlayerLocation(player, endgame);
