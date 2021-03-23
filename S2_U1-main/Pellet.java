@@ -13,7 +13,7 @@ public class Pellet extends JPanel
       y = yy;
       pacSize = ppacSize;
       size = 10;
-      powerSize = 15;
+      powerSize = 20;
       eaten = false;
     }
     
