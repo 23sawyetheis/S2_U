@@ -1,3 +1,7 @@
+/**
+ * @author (Sawyer Theis)
+ * @version (v1.0)
+ */
 
 import java.awt.*;
 import java.awt.event.*;

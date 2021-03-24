@@ -1,3 +1,8 @@
+/**
+ * @author (Sawyer Theis)
+ * @version (v1.0)
+ */
+
 public class SpaceShip
 {
      int x, y, score; 

@@ -1,4 +1,7 @@
-
+/**
+ * @author (Sawyer Theis)
+ * @version (v1.0)
+ */
 
 public class Alien
 {

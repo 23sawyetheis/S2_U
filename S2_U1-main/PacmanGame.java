@@ -1,3 +1,7 @@
+/**
+ * @author (Sawyer Theis)
+ * @version (v1.0)
+ */
 
 import java.awt.*;
 import java.awt.event.*;
@@ -153,10 +157,9 @@ public class PacmanGame  implements ActionListener, KeyListener
                 } 
                 if(ghostSteps >= 100)
                 {
-                    ghost[index].changeDirectionRandom();
+                    //ghost[index].changeDirectionRandom();
                     //ghost[index].chasePacPerfect(player);
-                    //ghost[index].chasePac(player);
-                    //ghost[index].runFromPac(player);
+                    ghost[index].chasePac(player);
                 }
             ghost[index].moveGhost();
             }
