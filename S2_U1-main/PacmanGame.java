@@ -9,9 +9,9 @@ public class PacmanGame  implements ActionListener, KeyListener
         JPanel main, sub;
         PacmanGraphics g1;
         JButton b1,b2;
-        int xdir, ydir, index, i, ghostSteps;
-        boolean endgame, startGame;
-        Pellet[] pellet;
+        int xdir, ydir, index, i, ghostSteps, eatGhostCounter;
+        boolean endgame, startGame, canEatGhosts;
+        Pellet[] pellet, powerPellet;
         Ghost[] ghost;
         PacMan player;
         
@@ -22,10 +22,13 @@ public class PacmanGame  implements ActionListener, KeyListener
         xdir = 0;
         ydir = 0;
         ghostSteps = 0;
+        eatGhostCounter = 0;
         endgame = false;
         startGame = false;
+        canEatGhosts = false;
         
         pellet = new Pellet[100];
+        powerPellet = new Pellet[3];
         
         for(index = 0; index < 10; index++)
         {
@@ -33,6 +36,10 @@ public class PacmanGame  implements ActionListener, KeyListener
                 pellet[index * 10 + i] = new Pellet(index * 20 + 100, i* 20+100, player.getPacSize());
             }
         }
+        
+        powerPellet[0] = new Pellet(10, 10, player.getPacSize());
+        powerPellet[1] = new Pellet(10, 600, player.getPacSize());
+        powerPellet[2] = new Pellet(600, 10, player.getPacSize());
         
         ghost = new Ghost[4];
         ghost[0] = new Ghost(300,500,player.getPacSize(), 1);
@@ -42,11 +49,12 @@ public class PacmanGame  implements ActionListener, KeyListener
         
         f1 = new JFrame("PAC DAT MAN");
           f1.setSize(700,700);
+          f1.setResizable(false);
           f1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
           
         Container c1 = f1.getContentPane();
           
-        g1 = new PacmanGraphics(player, ghost,endgame, pellet);
+        g1 = new PacmanGraphics(player, ghost, endgame, pellet, powerPellet);
           g1.addKeyListener(this);
           
         b1 =  new JButton("Start");
@@ -88,33 +96,75 @@ public class PacmanGame  implements ActionListener, KeyListener
        if (startGame == true) {   
        /** Need this section of code to slow computer down. */    
         for(index = 0; index < pellet.length; index++) {
-            if(pellet[index].isPelletBeingEaten(player.getX(),player.getY()) && pellet[index].isEaten() == false)
+            if(pellet[index].isPelletBeingEaten(player.getX(),player.getY()))
             {
-                pellet[index].beenEaten();
+                pellet[index].eatPellet();
                 player.addScore(10);
             } 
         }
         
-        for(index = 0; index < ghost.length; index++) {
-            if(ghost[index].isGhostHitting(player.getX(),player.getY()))
+        for(index = 0; index < powerPellet.length; index++)
+        {
+            if(powerPellet[index].isPowerPelletBeingEaten(player.getX(), player.getY()))
             {
-                endgame= true;
-            } 
-            ghost[index].moveGhost();
+                powerPellet[index].eatPellet();
+                eatGhostCounter = 0;
+                canEatGhosts = true;
+                player.addScore(50);
+                  
+                for(i = 0; i < ghost.length; i++)
+                {
+                    ghost[i].setCanEat(true);
+                }
+            }
         }
         
-        ghostSteps++;
-        if(ghostSteps >= 100)
+        if(canEatGhosts == true) 
         {
-            for(index = 0; index < ghost.length; index++)
+          eatGhostCounter++;
+          
+          for(index = 0; index < ghost.length; index++)
             {
-                //ghost[index].changeDirectionRandom();
-                ghost[index].chasePacPerfect(player);
-                //ghost[index].chasePac(player);
-                //ghost[index].runFromPac(player);
+              if(ghost[index].isGhostEatable(player.getX(), player.getY()))
+              {
+                  player.addScore(200);
+                  ghost[index].setDidEat(true);
+              }
+              if(ghostSteps >= 100)
+              {
+                    ghost[index].runFromPac(player);
+              }
+              ghost[index].moveGhostSlow();
             }
-          ghostSteps = 0;
+          if(eatGhostCounter >= 800)
+           {
+               canEatGhosts = false;
+               for(index = 0; index < ghost.length; index++)
+               {  
+                  ghost[index].setCanEat(false);
+               }
+           }
+        }  else {  
+            
+            for(index = 0; index < ghost.length; index++) {
+                if(ghost[index].isGhostHitting(player.getX(),player.getY()))
+                {
+                    endgame = true;
+                } 
+                if(ghostSteps >= 100)
+                {
+                    ghost[index].changeDirectionRandom();
+                    //ghost[index].chasePacPerfect(player);
+                    //ghost[index].chasePac(player);
+                    //ghost[index].runFromPac(player);
+                }
+            ghost[index].moveGhost();
+            }
         }
+        
+        if (ghostSteps >= 100) ghostSteps = 0;
+        
+        ghostSteps++;
         
         if (player.getX() < 0) {  
             xdir = 0; 
@@ -161,7 +211,7 @@ public class PacmanGame  implements ActionListener, KeyListener
         }
       
         player.movePac(xdir, ydir);
-        g1.updatePlayerLocation(player);
+        g1.updateObjects(player, ghost, pellet, powerPellet, eatGhostCounter);
         g1.hitGhost(endgame);
         g1.repaint();
         }

@@ -33,9 +33,10 @@ public class Pellet extends JPanel
         return y;
     }
     
+    
     public boolean isPelletBeingEaten(int pacX, int pacY)
     {
-        if (pacX >= x-pacSize && pacX <= x + size && pacY <= y + size && pacY >= y - pacSize) {
+        if (pacX >= x-pacSize && pacX <= x + size && pacY <= y + size && pacY >= y - pacSize && eaten == false) {
             return true;
         } else {
             return false;
@@ -44,7 +45,7 @@ public class Pellet extends JPanel
     
     public boolean isPowerPelletBeingEaten(int pacX, int pacY)
     {
-        if (pacX >= x-pacSize && pacX <= x + powerSize && pacY <= y + powerSize && pacY >= y - pacSize) {
+        if (pacX >= x-pacSize && pacX <= x + powerSize && pacY <= y + powerSize && pacY >= y - pacSize && eaten == false) {
             return true;
         } else {
             return false;
@@ -66,7 +67,7 @@ public class Pellet extends JPanel
         return eaten;
     }
     
-    public void beenEaten()
+    public void eatPellet()
     {
        eaten = true;
     }

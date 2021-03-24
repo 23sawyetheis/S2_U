@@ -5,12 +5,12 @@ import javax.swing.*;
 public class PacmanGraphics  extends JPanel
 {   
      boolean eendgame;
-     Pellet[] ppellet;
+     Pellet[] ppellet, powerPellet;
      Ghost[] gghost;
      PacMan pplayer;
-     int index;
+     int index, eatGhostCounter;
    
-    public PacmanGraphics(PacMan player, Ghost[] ghost, boolean endgame, Pellet[] pellet)               
+    public PacmanGraphics(PacMan player, Ghost[] ghost, boolean endgame, Pellet[] pellet, Pellet[] ppowerPellet)               
     {
       setBackground(Color.black);
       
@@ -18,12 +18,16 @@ public class PacmanGraphics  extends JPanel
       gghost = ghost;
       ppellet = pellet;
       eendgame = endgame;
-      
+      powerPellet = ppowerPellet;
     }
    
-    public void updatePlayerLocation(PacMan player)
+    public void updateObjects(PacMan player, Ghost[] ghost, Pellet[] pellet, Pellet[] ppowerPellet, int eeatGhostCounter)
     {
       pplayer = player;
+      gghost = ghost;
+      powerPellet = ppowerPellet;
+      ppellet = pellet;
+      eatGhostCounter = eeatGhostCounter;
     }
     
     public void hitGhost(boolean endgame)
@@ -45,9 +49,29 @@ public class PacmanGraphics  extends JPanel
             }
        }
        
+       for (index = 0; index < powerPellet.length; index++) {
+            if(powerPellet[index].isEaten() == false) {
+                powerPellet[index].drawPowerPellet(g);
+            }
+       }
+       
        for (index = 0; index < gghost.length; index++) {
-           gghost[index].drawGhost(g);
-        }
+           if(gghost[index].getDidEat() == false)
+           {
+            if(gghost[index].getCanEat() == false)
+            {
+               gghost[index].drawGhost(g);
+            }
+            if(gghost[index].getCanEat() == true)
+            {
+               if( eatGhostCounter > 500 && eatGhostCounter % 50 > 25) // finds the remandier after 500 and see if it is less than 25
+                   g.setColor(Color.white);
+               else g.setColor(Color.blue);
+              
+               gghost[index].drawScaredGhost(g);
+            }            
+           }
+       }
        
        g.setColor(Color.white);
        g.setFont(new Font("Arial", Font.BOLD, 20));

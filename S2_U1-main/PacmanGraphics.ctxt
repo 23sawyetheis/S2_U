@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=PacmanGraphics
-comment1.params=player\ ghost\ endgame\ pellet
-comment1.target=PacmanGraphics(PacMan,\ Ghost[],\ boolean,\ Pellet[])
-comment2.params=player
-comment2.target=void\ updatePlayerLocation(PacMan)
+comment1.params=player\ ghost\ endgame\ pellet\ ppowerPellet
+comment1.target=PacmanGraphics(PacMan,\ Ghost[],\ boolean,\ Pellet[],\ Pellet[])
+comment2.params=player\ ghost\ pellet\ ppowerPellet\ eeatGhostCounter
+comment2.target=void\ updateObjects(PacMan,\ Ghost[],\ Pellet[],\ Pellet[],\ int)
 comment3.params=endgame
 comment3.target=void\ hitGhost(boolean)
 comment4.params=g

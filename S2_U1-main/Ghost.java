@@ -4,7 +4,8 @@ import java.awt.event.*;
 
 public class Ghost extends JPanel
 {
-     int x, y, pacSize, size, color, xdir, ydir, randomdirection;
+     int x, y, pacSize, size, color, xdir, ydir, randomdirection, count;
+     boolean canEat, didEat;
      
     public Ghost(int xx, int yy, int ppacSize, int ccolor)
     {
@@ -13,6 +14,9 @@ public class Ghost extends JPanel
       size = 20;
       pacSize = ppacSize;
       color = ccolor;
+      canEat = false;
+      didEat = false;
+      count = 0;
     }
     
     
@@ -21,10 +25,29 @@ public class Ghost extends JPanel
         return x;
     }
     
-    
     public int getY()
     {
         return y;
+    }
+    
+    public boolean getCanEat()
+     {
+       return canEat;
+      }
+      
+    public void setCanEat(boolean ce)
+    {
+        canEat = ce;
+    }
+    
+    public boolean getDidEat()
+    {
+        return didEat;
+    }
+    
+    public void setDidEat(boolean de)
+    {
+        didEat = de;
     }
     
     public int getGhostSize()
@@ -36,6 +59,15 @@ public class Ghost extends JPanel
     {
        x = x + xdir;
        y = y + ydir;
+    }
+    
+    public void moveGhostSlow()
+    {
+       count++;
+       if (count == 1) {
+       x = x + xdir;
+       y = y + ydir;
+       } else count = 0;
     }
     
     public void setGhost(int xx, int yy) {
@@ -60,13 +92,21 @@ public class Ghost extends JPanel
     }
     
     public void drawScaredGhost (Graphics g) {
-         g.setColor(Color.blue);
          g.fillRect(x, y, size, size);
     }
     
     public boolean isGhostHitting(int pacX, int pacY)
     {
-        if (pacX >= x-pacSize && pacX <= x + size && pacY <= y + size && pacY >= y - pacSize) {
+        if (pacX >= x-pacSize && pacX <= x + size && pacY <= y + size && pacY >= y - pacSize && didEat == false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean isGhostEatable(int pacX, int pacY)
+    {
+        if (pacX >= x-pacSize && pacX <= x + size && pacY <= y + size && pacY >= y - pacSize && canEat == true && didEat == false) {
             return true;
         } else {
             return false;
